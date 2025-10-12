@@ -1,0 +1,45 @@
+
+import vagones.*
+describe "Vagones" {
+    const pasajeros = new VagonPasajeros(largo= 10, ancho= 3, tieneBanio= false, estaOrdenado= false) 
+    const carga = new VagonCarga(cargaIdeal= 5000, maderasSueltas= 3)
+   // const dormitorio = new VagonDormitorio(compartimientos= 5,camasPorCompartimiento= 2)
+  test "Vagones Pasajeros: cantidad de pasajeros" {
+    assert.equals(65, pasajeros.cantidadPasajeros())
+    
+    pasajeros.hacerMantenimiento()
+
+    assert.equals(80, pasajeros.cantidadPasajeros())
+  }
+  test "Vagon Pasajeros: peso maximo" {
+    assert.equals(8000, pasajeros.pesoMaximo())
+    
+    pasajeros.ponerBanio()
+
+    assert.equals(7500, pasajeros.pesoMaximo())
+    
+  }
+  test "Vagon Pasajeros: cantidad de pasajeros antes y después del mantenimiento" {
+    assert.equals(65, pasajeros.cantidadPasajeros())    // (10*8)-15 porque está desordenado
+    pasajeros.hacerMantenimiento()
+    assert.equals(80, pasajeros.cantidadPasajeros())    // ahora ordenado
+  }
+
+  test "Vagon Pasajeros: peso máximo con y sin baño" {
+    assert.equals(2000 + (80*65) + 800, pasajeros.pesoMaximo())   // sin baño
+    pasajeros.ponerBanio()
+    assert.equals(2000 + (80*65) + 300, pasajeros.pesoMaximo())   // con baño
+  }
+
+  test "Vagon Carga: mantenimiento reduce maderas sueltas" {
+    assert.equals(5000 - (400*3), carga.cargaMaxima())    // carga inicial
+    carga.hacerMantenimiento()
+    assert.equals(5000 - (400*1), carga.cargaMaxima())    // se reducen en 2
+  }
+/*
+  test "Vagon Dormitorio: cantidad de pasajeros y peso máximo" {
+    assert.equals(10, dormitorio.cantidadPasajeros())     // 5*2
+    assert.equals(4000 + (80*10) + 1200, dormitorio.pesoMaximo())
+  }
+*/
+}
