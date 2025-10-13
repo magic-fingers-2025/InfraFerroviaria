@@ -1,7 +1,7 @@
 class VagonPasajeros {
   const largo
   const ancho
-  var tieneBanio
+  var property tieneBanio
   var estaOrdenado
   
   method cantidadMaximaDePasajeros() {
@@ -12,8 +12,6 @@ class VagonPasajeros {
   method cargaMaxima() = if (tieneBanio) 300 else 800
   
   method pesoMaximo() = (2000 + (80 * self.cantidadMaximaDePasajeros())) + self.cargaMaxima()
-  
-  method tieneBanio() = tieneBanio
   
   method esPopular() {
     self.cantidadMaximaDePasajeros() > 50
