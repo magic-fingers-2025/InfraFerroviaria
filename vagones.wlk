@@ -21,18 +21,8 @@ class VagonPasajeros {
     estaOrdenado = true
   }
   
-  method llevaPasajeros() = true
-  
   method desordenar() {
     estaOrdenado = false
-  }
-  
-  method ponerBanio() {
-    tieneBanio = true
-  }
-  
-  method sacarBanio() {
-    tieneBanio = false
   }
 }
 
@@ -51,12 +41,6 @@ class VagonCarga {
   method esPopular() = false
   
   method hacerMantenimiento() {
-    if (maderasSueltas > 1) {
-      maderasSueltas -= 2
-    } else {
-      maderasSueltas = 0
-    }
+  maderasSueltas = 0.max(maderasSueltas - 2)
   }
-  
-  method llevaPasajeros() = false
 }
