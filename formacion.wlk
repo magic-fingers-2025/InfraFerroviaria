@@ -1,0 +1,47 @@
+import vagones.*
+
+//Etapa 1
+class Formacion {
+    const vagones = []
+    //para estaOrganizado
+    var aparecioVagonVacio = false
+    var organizado = true
+
+    method agregarVagon(unVagon) = vagones.add(unVagon)
+
+    //requerimientos
+    method cantidadMaximaDePasajeros() = vagones.sum({v => v.cantidadMaximaDePasajeros()})
+
+    method cantidadDeVagonesPopulares() = vagones.count({v => v.esPopular()})
+
+    method esCarguera() = vagones.all({v => v.cargaMaxima() >= 1000})
+
+    //dispersion de pesos
+    method pesoMaximoMayor() = vagones.map({v => v.pesoMaximo()}).max()
+    method pesoMaximoMenor() = vagones.map({v => v.pesoMaximo()}).min()
+    method dispersionDePesos() = self.pesoMaximoMayor() - self.pesoMaximoMenor()
+
+    method cantidadDeBanios() = vagones.count({v => v.tieneBanio()})
+
+    method hacerMantenimiento() = vagones.forEach({v => v.hacerMantenimiento()})
+
+    //si esta equilibrada
+    method conPasajeros() = vagones.filter({v => v.cantidadMaximaDePasajeros() > 0})
+    method maximoPasajeros() = self.conPasajeros().map({v => v.cantidadMaximaDePasajeros()}).max()
+    method minimoPasajeros() = self.conPasajeros().map({v => v.cantidadMaximaDePasajeros()}).min()
+    method estaEquilibrada() = self.conPasajeros().size() <= 1 or (self.maximoPasajeros() - self.minimoPasajeros() <= 20) 
+
+    //si esta organizada
+    method estaOrganizada() {
+        aparecioVagonVacio = false
+        organizado = true
+
+        vagones.forEach({v => if(v.cantidadMaximaDePasajeros() == 0) {aparecioVagonVacio = true} 
+        else if(aparecioVagonVacio) {organizado = false} })
+
+        return organizado
+
+    }
+
+  
+}
