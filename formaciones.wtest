@@ -2,15 +2,15 @@ import vagones.*
 import formaciones.*
 
 describe "Test vagones" {
-  const vagon1 = new Pasajeros(largo = 10, ancho = 4, estaOrdenado = true, tieneBaños = true)
-  const vagon2 = new Pasajeros(largo = 7, ancho = 2, estaOrdenado = false, tieneBaños = false)
+  const vagon1 = new Pasajeros(largo = 10, ancho = 4, estaOrdenado = true, tieneBanios = true)
+  const vagon2 = new Pasajeros(largo = 7, ancho = 2, estaOrdenado = false, tieneBanios = false)
   const vagon3 = new Carga(cargaMaximaIdeal = 6800, maderasSueltas = 5)
   const vagon4 = new Dormitorio(compartimentos = 8, camasPorCompartimento = 3)
   test "El primer vagon tiene baño, una cantidad maxima de pasajeros de 100, un peso maximo de 10300 y una carga máxima de 300" {
     assert.equals(100, vagon1.cantidadMaximaDePasajeros())
     assert.equals(10300, vagon1.pesoMaximo())
     assert.equals(300, vagon1.cargaMaxima())
-    assert.that(vagon1.tieneBaños())
+    assert.that(vagon1.tieneBanios())
     
   }
 
@@ -18,21 +18,21 @@ describe "Test vagones" {
     assert.equals(41, vagon2.cantidadMaximaDePasajeros())
     assert.equals(6080, vagon2.pesoMaximo())
     assert.equals(800, vagon2.cargaMaxima())
-    assert.notThat(vagon2.tieneBaños())
+    assert.notThat(vagon2.tieneBanios())
     
   }
   test "El tercer vagon no tiene baño, una cantidad maxima de pasajeros de 0, un peso maximo de 6300 y una carga máxima de 4800" {
     assert.equals(0, vagon3.cantidadMaximaDePasajeros())
     assert.equals(6300, vagon3.pesoMaximo())
     assert.equals(4800, vagon3.cargaMaxima())
-    assert.notThat(vagon3.tieneBaños())
+    assert.notThat(vagon3.tieneBanios())
     
   }
   test "El cuarto vagon tiene baño, una cantidad maxima de pasajeros de 24, un peso maximo de 7120 y una carga máxima de 1200" {
     assert.equals(24, vagon4.cantidadMaximaDePasajeros())
     assert.equals(7120, vagon4.pesoMaximo())
     assert.equals(1200, vagon4.cargaMaxima())
-    assert.that(vagon4.tieneBaños())
+    assert.that(vagon4.tieneBanios())
     
   }
 }
@@ -41,8 +41,8 @@ describe "Test vagones" {
 describe "Tests de organización de una formación" {
   
   // Testeamos la organización por ser un método complejo e interesante.
-  const vagon1 = new Pasajeros(largo = 10, ancho = 4, estaOrdenado = true, tieneBaños = true)
-  const vagon2 = new Pasajeros(largo = 7, ancho = 2, estaOrdenado = false, tieneBaños = false)
+  const vagon1 = new Pasajeros(largo = 10, ancho = 4, estaOrdenado = true, tieneBanios = true)
+  const vagon2 = new Pasajeros(largo = 7, ancho = 2, estaOrdenado = false, tieneBanios = false)
   const vagon3 = new Carga(cargaMaximaIdeal = 6800, maderasSueltas = 5)  
   const vagon4 = new Dormitorio(compartimentos = 8, camasPorCompartimento = 3)
   const formacion = new Formacion()
@@ -86,8 +86,8 @@ describe "Tests formaciones"{
   // Jueguemos a que tenemos todos los vagones del enunciado disponibles en un hangar y en base a eso armamos las 2 formaciones de una vez.
 
   // Vagones primera formación
-  const vagon1 = new Pasajeros(largo = 10, ancho = 4, estaOrdenado = true, tieneBaños = true)
-  const vagon2 = new Pasajeros(largo = 7, ancho = 2, estaOrdenado = false, tieneBaños = false)
+  const vagon1 = new Pasajeros(largo = 10, ancho = 4, estaOrdenado = true, tieneBanios = true)
+  const vagon2 = new Pasajeros(largo = 7, ancho = 2, estaOrdenado = false, tieneBanios = false)
   const vagon3 = new Carga(cargaMaximaIdeal = 6800, maderasSueltas = 5)  
   const vagon4 = new Dormitorio(compartimentos = 8, camasPorCompartimento = 3)
 
