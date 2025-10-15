@@ -33,7 +33,7 @@ class VagonPasajeros {
     self.cantidadMaximaDePasajeros() > 50
   }
   
-  method hacerMantenimiento() {
+   method recibirMantenimiento() {
     estaOrdenado = true
   }
 }
@@ -52,7 +52,7 @@ class VagonCarga {
   
   method esPopular() = false
   
-  method hacerMantenimiento() {
+  method recibirMantenimiento() {
   maderasSueltas = 0.max(maderasSueltas - 2)
   }
 }
