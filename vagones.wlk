@@ -1,7 +1,7 @@
 class VagonPasajeros {
   const largo
   const ancho
-  var property tieneBanio
+  const property tieneBanio
   var estaOrdenado
   
   method cantidadMaximaDePasajeros() {
@@ -19,10 +19,6 @@ class VagonPasajeros {
   
   method hacerMantenimiento() {
     estaOrdenado = true
-  }
-  
-  method desordenar() {
-    estaOrdenado = false
   }
 }
 
