@@ -2,19 +2,16 @@ import vagones.*
 
 //Etapa 1
 class Formacion {
-    const vagones = []
-    //para estaOrganizado
-    var aparecioVagonVacio = false
-    var organizado = true
+    var vagones = []
 
     method agregarVagon(unVagon) = vagones.add(unVagon)
 
     //requerimientos
     method cantidadMaximaDePasajeros() = vagones.sum({v => v.cantidadMaximaDePasajeros()})
 
-    method cantidadDeVagonesPopulares() = vagones.count({v => v.esPopular()})
+    method cantidadVagonesPopulares() = vagones.count({v => v.esPopular()})
 
-    method esCarguera() = vagones.all({v => v.cargaMaxima() >= 1000})
+    method esFormacionCarguera() = vagones.all({v => v.cargaMaxima() >= 1000})
 
     //dispersion de pesos
     method pesoMaximoMayor() = vagones.map({v => v.pesoMaximo()}).max()
@@ -23,7 +20,7 @@ class Formacion {
 
     method cantidadDeBanios() = vagones.count({v => v.tieneBanio()})
 
-    method hacerMantenimiento() = vagones.forEach({v => v.hacerMantenimiento()})
+    method hacerMantenimiento() = vagones.forEach({v => v.recibirMantenimiento()})
 
     //si esta equilibrada
     method conPasajeros() = vagones.filter({v => v.cantidadMaximaDePasajeros() > 0})
@@ -33,15 +30,11 @@ class Formacion {
 
     //si esta organizada
     method estaOrganizada() {
-        aparecioVagonVacio = false
-        organizado = true
-
-        vagones.forEach({v => if(v.cantidadMaximaDePasajeros() == 0) {aparecioVagonVacio = true} 
-        else if(aparecioVagonVacio) {organizado = false} })
-
-        return organizado
-
+        return vagones == self.vagonesConPasajeros() + self.vagonesSinPasajeros()
     }
+
+    method vagonesConPasajeros() = vagones.filter({v => v.cantidadMaximaDePasajeros() > 0})
+    method vagonesSinPasajeros() = vagones.filter({v => v.cantidadMaximaDePasajeros() == 0})
 
   
 }
