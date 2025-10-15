@@ -2,8 +2,8 @@ import vagones.*
 
 class Locomotora {
     const   property peso 
-    const property capacidadPesoArrastrable
+    const property arrastre
     const  property velocidadMaxima
-    method esEficiente() =  capacidadPesoArrastrable>=peso*5
+    method esEficiente() =  arrastre>=peso*5
   
 }
