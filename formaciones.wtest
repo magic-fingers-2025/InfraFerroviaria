@@ -2,37 +2,37 @@ import vagones.*
 import formaciones.*
 
 describe "Test vagones" {
-  const vagon1 = new Pasajeros(largo = 10, ancho = 4, estaOrdenado = true, tieneBanios = true)
-  const vagon2 = new Pasajeros(largo = 7, ancho = 2, estaOrdenado = false, tieneBanios = false)
-  const vagon3 = new Carga(cargaMaximaIdeal = 6800, maderasSueltas = 5)
-  const vagon4 = new Dormitorio(compartimentos = 8, camasPorCompartimento = 3)
-  test "El primer vagon tiene baño, una cantidad maxima de pasajeros de 100, un peso maximo de 10300 y una carga máxima de 300" {
+  const vagon1 = new VagonPasajeros(largo = 10, ancho = 4, estaOrdenado = true, tieneBanio = true)
+  const vagon2 = new VagonPasajeros(largo = 7, ancho = 2, estaOrdenado = false, tieneBanio = false)
+  const vagon3 = new VagonCarga(cargaIdeal = 6800, maderasSueltas = 5)
+  const vagon4 = new VagonDormitorio(compartimentos = 8, camasPorCompartimento = 3)
+  test "El primer vagon tiene baño, una cantidad maxima de VagonPasajeros de 100, un peso maximo de 10300 y una carga máxima de 300" {
     assert.equals(100, vagon1.cantidadMaximaDePasajeros())
     assert.equals(10300, vagon1.pesoMaximo())
     assert.equals(300, vagon1.cargaMaxima())
-    assert.that(vagon1.tieneBanios())
+    assert.that(vagon1.tieneBanio())
     
   }
 
-  test "El segundo vagon no tiene baño, una cantidad maxima de pasajeros de 41, un peso maximo de 6080 y una carga máxima de 800" {
+  test "El segundo vagon no tiene baño, una cantidad maxima de VagonPasajeros de 41, un peso maximo de 6080 y una carga máxima de 800" {
     assert.equals(41, vagon2.cantidadMaximaDePasajeros())
     assert.equals(6080, vagon2.pesoMaximo())
     assert.equals(800, vagon2.cargaMaxima())
-    assert.notThat(vagon2.tieneBanios())
+    assert.notThat(vagon2.tieneBanio())
     
   }
-  test "El tercer vagon no tiene baño, una cantidad maxima de pasajeros de 0, un peso maximo de 6300 y una carga máxima de 4800" {
+  test "El tercer vagon no tiene baño, una cantidad maxima de VagonPasajeros de 0, un peso maximo de 6300 y una carga máxima de 4800" {
     assert.equals(0, vagon3.cantidadMaximaDePasajeros())
     assert.equals(6300, vagon3.pesoMaximo())
     assert.equals(4800, vagon3.cargaMaxima())
-    assert.notThat(vagon3.tieneBanios())
+    assert.notThat(vagon3.tieneBanio())
     
   }
-  test "El cuarto vagon tiene baño, una cantidad maxima de pasajeros de 24, un peso maximo de 7120 y una carga máxima de 1200" {
+  test "El cuarto vagon tiene baño, una cantidad maxima de VagonPasajeros de 24, un peso maximo de 7120 y una carga máxima de 1200" {
     assert.equals(24, vagon4.cantidadMaximaDePasajeros())
     assert.equals(7120, vagon4.pesoMaximo())
     assert.equals(1200, vagon4.cargaMaxima())
-    assert.that(vagon4.tieneBanios())
+    assert.that(vagon4.tieneBanio())
     
   }
 }
@@ -41,14 +41,14 @@ describe "Test vagones" {
 describe "Tests de organización de una formación" {
   
   // Testeamos la organización por ser un método complejo e interesante.
-  const vagon1 = new Pasajeros(largo = 10, ancho = 4, estaOrdenado = true, tieneBanios = true)
-  const vagon2 = new Pasajeros(largo = 7, ancho = 2, estaOrdenado = false, tieneBanios = false)
-  const vagon3 = new Carga(cargaMaximaIdeal = 6800, maderasSueltas = 5)  
-  const vagon4 = new Dormitorio(compartimentos = 8, camasPorCompartimento = 3)
+  const vagon1 = new VagonPasajeros(largo = 10, ancho = 4, estaOrdenado = true, tieneBanio = true)
+  const vagon2 = new VagonPasajeros(largo = 7, ancho = 2, estaOrdenado = false, tieneBanio = false)
+  const vagon3 = new VagonCarga(cargaIdeal = 6800, maderasSueltas = 5)  
+  const vagon4 = new VagonDormitorio(compartimentos = 8, camasPorCompartimento = 3)
   const formacion = new Formacion()
 
   
-  test "Se agregan 3 vagones con pasajeros y a continuación uno que no. La formación está organizada" {
+  test "Se agregan 3 vagones con VagonPasajeros y a continuación uno que no. La formación está organizada" {
     
     formacion.agregarVagon(vagon1)
     formacion.agregarVagon(vagon2)
@@ -60,7 +60,7 @@ describe "Tests de organización de una formación" {
     
   }
 
-  test "Se agrega 1 vagón con pasajeros y a continuación 1 que no y a continuación 2 que sí. La formación no está organizada" {
+  test "Se agrega 1 vagón con VagonPasajeros y a continuación 1 que no y a continuación 2 que sí. La formación no está organizada" {
     
     formacion.agregarVagon(vagon1)
     formacion.agregarVagon(vagon3)
@@ -71,7 +71,7 @@ describe "Tests de organización de una formación" {
     
   }
 
-  test "Se agrega 1 vagón sin pasajeros y a continuación 2 que sí. La formación no está organizada" {
+  test "Se agrega 1 vagón sin VagonPasajeros y a continuación 2 que sí. La formación no está organizada" {
     
     formacion.agregarVagon(vagon3)
     formacion.agregarVagon(vagon1)    
@@ -86,14 +86,14 @@ describe "Tests formaciones"{
   // Jueguemos a que tenemos todos los vagones del enunciado disponibles en un hangar y en base a eso armamos las 2 formaciones de una vez.
 
   // Vagones primera formación
-  const vagon1 = new Pasajeros(largo = 10, ancho = 4, estaOrdenado = true, tieneBanios = true)
-  const vagon2 = new Pasajeros(largo = 7, ancho = 2, estaOrdenado = false, tieneBanios = false)
-  const vagon3 = new Carga(cargaMaximaIdeal = 6800, maderasSueltas = 5)  
-  const vagon4 = new Dormitorio(compartimentos = 8, camasPorCompartimento = 3)
+  const vagon1 = new VagonPasajeros(largo = 10, ancho = 4, estaOrdenado = true, tieneBanio = true)
+  const vagon2 = new VagonPasajeros(largo = 7, ancho = 2, estaOrdenado = false, tieneBanio = false)
+  const vagon3 = new VagonCarga(cargaIdeal = 6800, maderasSueltas = 5)  
+  const vagon4 = new VagonDormitorio(compartimentos = 8, camasPorCompartimento = 3)
 
   // Vagones segunda formación
-  const vagon5 = new Carga(cargaMaximaIdeal = 8000, maderasSueltas = 1)  
-  const vagon6 = new Dormitorio(compartimentos = 15, camasPorCompartimento = 4)
+  const vagon5 = new VagonCarga(cargaIdeal = 8000, maderasSueltas = 1)  
+  const vagon6 = new VagonDormitorio(compartimentos = 15, camasPorCompartimento = 4)
 
   // Instanciar las formaciones
   const formacion1 = new Formacion()
@@ -117,10 +117,10 @@ describe "Tests formaciones"{
     assert.equals(1, formacion1.cantidadDeVagonesPopulares())
     assert.notThat(formacion1.esFormacionCarguera())
     assert.equals(4220, formacion1.dispersionDePesos())
-    assert.equals(2, formacion1.cantidadDeBaños())
+    assert.equals(2, formacion1.cantidadDeBanios())
   }
 
-  test "Luego de hacer mantenimiento, la formación 1 tiene una cantidad máxima de pasajeros de 180, 2 vagones populares, no es carguera, su dispersión de pesos es 3200 y tiene 2 baños"{
+  test "Luego de hacer mantenimiento, la formación 1 tiene una cantidad máxima de VagonPasajeros de 180, 2 vagones populares, no es carguera, su dispersión de pesos es 3200 y tiene 2 baños"{
    
     formacion1.hacerMantenimiento()
 
@@ -128,18 +128,18 @@ describe "Tests formaciones"{
     assert.equals(2, formacion1.cantidadDeVagonesPopulares())
     assert.notThat(formacion1.esFormacionCarguera())
     assert.equals(3200, formacion1.dispersionDePesos())
-    assert.equals(2, formacion1.cantidadDeBaños())
+    assert.equals(2, formacion1.cantidadDeBanios())
   }
 
   
-  test "Antes de hacer mantenimiento la formación 2 tiene una cantidad máxima de pasajeros de 60, 1 vagón popular, es carguera, su dispersión de pesos es 900 y tiene 1 baño" {
+  test "Antes de hacer mantenimiento la formación 2 tiene una cantidad máxima de VagonPasajeros de 60, 1 vagón popular, es carguera, su dispersión de pesos es 900 y tiene 1 baño" {
         
     
     assert.equals(60, formacion2.maximoDePasajeros())
     assert.equals(1, formacion2.cantidadDeVagonesPopulares())
     assert.that(formacion2.esFormacionCarguera())
     assert.equals(900, formacion2.dispersionDePesos())
-    assert.equals(1, formacion2.cantidadDeBaños())
+    assert.equals(1, formacion2.cantidadDeBanios())
     
   }
 
@@ -150,7 +150,7 @@ describe "Tests formaciones"{
     assert.equals(1, formacion2.cantidadDeVagonesPopulares())
     assert.that(formacion2.esFormacionCarguera())
     assert.equals(500, formacion2.dispersionDePesos())
-    assert.equals(1, formacion2.cantidadDeBaños())
+    assert.equals(1, formacion2.cantidadDeBanios())
     
   }
 
