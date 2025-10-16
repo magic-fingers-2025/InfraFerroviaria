@@ -51,4 +51,12 @@ class Formacion {
     method puedeMoverse() = self.arrastreTotal() >= self.pesoTotal()
 
     method kilosDeEmpujeFaltantes() = (self.pesoTotal() - self.arrastreTotal().max()) 
+=======
+class Locomotora {
+    const   property peso 
+    const property arrastre
+    const  property velocidadMaxima
+    method esEficiente() =  arrastre>=peso*5
+  
+>>>>>>> origin/dev
 }
