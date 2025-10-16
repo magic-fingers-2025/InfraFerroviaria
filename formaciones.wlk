@@ -2,8 +2,8 @@ import vagones.*
 
 //Etapa 1
 class Formacion {
-    var vagones = []
-    var locomotoras = [] //Para etapa 2 locomotora
+    const vagones = []
+    const locomotoras = [] //Para etapa 2 locomotora
 
     method agregarVagon(unVagon) = vagones.add(unVagon)
 
