@@ -23,11 +23,16 @@ class Formacion {
 
     method hacerMantenimiento() = vagones.forEach({v => v.recibirMantenimiento()})
 
-    //si esta equilibrada
-    method conPasajeros() = vagones.filter({v => v.cantidadMaximaDePasajeros() > 0})
-    method maximoDePasajeros() = self.conPasajeros().map({v => v.cantidadMaximaDePasajeros()}).max()
-    method minimoPasajeros() = self.conPasajeros().map({v => v.cantidadMaximaDePasajeros()}).min()
-    method estaEquilibrada() = self.conPasajeros().size() <= 1 or (self.maximoDePasajeros() - self.minimoPasajeros() <= 20) 
+    method estaEquilibrada() {
+    // con map está todo bien si en alguno obtenemos una lista vacía. 
+        
+    return (self.maximoDePasajeros() - self.minimoDePasajeros()) <= 20
+
+    }
+    method maximoDePasajeros() = vagones.sum{v => v.cantidadMaximaDePasajeros()}
+    // method maximoDePasajeros() = vagones.map{v => v.cantidadMaximaDePasajeros()}.max()
+    method minimoDePasajeros() = vagones.map{v => v.cantidadMaximaDePasajeros()}.min()
+  
 
     //si esta organizada
     method estaOrganizada() {
@@ -105,5 +110,5 @@ class Depositos {
   
   method agregarLocomotoraSiEsNecesaioA(unaFormacion) = if (not unaFormacion.puedeMoverse()) unaFormacion.agregarLocomotora(self.agregarLocomotoraComplementariaA(unaFormacion))
 
-  method agregarLocomotoraComplementariaA(unaFormacion) = locomotoras.any{l => l.arrastre() >= unaFormacion.empujeFaltante() }.anyOne()
+  method agregarLocomotoraComplementariaA(unaFormacion) = locomotorasSueltas.any{l => l.arrastre() >= unaFormacion.empujeFaltante() }.anyOne()
 }

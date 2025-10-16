@@ -30,7 +30,7 @@ class VagonPasajeros {
   method pesoMaximo() = (2000 + (80 * self.cantidadMaximaDePasajeros())) + self.cargaMaxima()
   
   method esPopular() {
-    self.cantidadMaximaDePasajeros() > 50
+    return self.cantidadMaximaDePasajeros() > 50
   }
   
    method recibirMantenimiento() {

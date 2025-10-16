@@ -7,7 +7,7 @@ describe "Test vagones" {
   const vagon3 = new VagonCarga(cargaIdeal = 6800, maderasSueltas = 5)
   const vagon4 = new VagonDormitorio(compartimentos = 8, camasPorCompartimento = 3)
   test "El primer vagon tiene baño, una cantidad maxima de VagonPasajeros de 100, un peso maximo de 10300 y una carga máxima de 300" {
-    assert.equals(100, vagon1.cantidadMaximaDeVagonPasajeros())
+    assert.equals(100, vagon1.cantidadMaximaDePasajeros())
     assert.equals(10300, vagon1.pesoMaximo())
     assert.equals(300, vagon1.cargaMaxima())
     assert.that(vagon1.tieneBanio())
@@ -15,21 +15,21 @@ describe "Test vagones" {
   }
 
   test "El segundo vagon no tiene baño, una cantidad maxima de VagonPasajeros de 41, un peso maximo de 6080 y una carga máxima de 800" {
-    assert.equals(41, vagon2.cantidadMaximaDeVagonPasajeros())
+    assert.equals(41, vagon2.cantidadMaximaDePasajeros())
     assert.equals(6080, vagon2.pesoMaximo())
     assert.equals(800, vagon2.cargaMaxima())
     assert.notThat(vagon2.tieneBanio())
     
   }
   test "El tercer vagon no tiene baño, una cantidad maxima de VagonPasajeros de 0, un peso maximo de 6300 y una carga máxima de 4800" {
-    assert.equals(0, vagon3.cantidadMaximaDeVagonPasajeros())
+    assert.equals(0, vagon3.cantidadMaximaDePasajeros())
     assert.equals(6300, vagon3.pesoMaximo())
     assert.equals(4800, vagon3.cargaMaxima())
     assert.notThat(vagon3.tieneBanio())
     
   }
   test "El cuarto vagon tiene baño, una cantidad maxima de VagonPasajeros de 24, un peso maximo de 7120 y una carga máxima de 1200" {
-    assert.equals(24, vagon4.cantidadMaximaDeVagonPasajeros())
+    assert.equals(24, vagon4.cantidadMaximaDePasajeros())
     assert.equals(7120, vagon4.pesoMaximo())
     assert.equals(1200, vagon4.cargaMaxima())
     assert.that(vagon4.tieneBanio())
