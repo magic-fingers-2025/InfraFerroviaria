@@ -1,9 +1,9 @@
 
 class VagonDormitorio {
     const camasPorCompartimento
-    const cantCamas
+    const compartimentos
     
-    method cantidadMaximaDePasajeros()= camasPorCompartimento*cantCamas
+    method cantidadMaximaDePasajeros()= camasPorCompartimento*compartimentos
     method cargaMaxima()=  1200
     method pesoMaximo()= 4000 + (80 * self.cantidadMaximaDePasajeros())+ self.cargaMaxima()  
     method tieneBanio() = true 
