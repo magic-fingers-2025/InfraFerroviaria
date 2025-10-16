@@ -110,47 +110,47 @@ describe "Tests formaciones"{
     formacion2.agregarVagon(vagon6)
   }
 
-  test "Antes de hacer mantenimiento, la formación 1 tiene una cantidad de VagonPasajeros de 165, 1 vagón popular, no es carguera, su dispersión de pesos es 4220 y tiene 2 baños"{
+  test "Antes de hacer mantenimiento, la formación 1 tiene una cantidad de pasajeros de 165, 1 vagón popular, no es carguera, su dispersión de pesos es 4220 y tiene 2 baños"{
     
 
-    assert.equals(165, formacion1.maximoDeVagonPasajeros())
+    assert.equals(165, formacion1.maximoDePasajeros())
     assert.equals(1, formacion1.cantidadDeVagonesPopulares())
     assert.notThat(formacion1.esFormacionCarguera())
     assert.equals(4220, formacion1.dispersionDePesos())
-    assert.equals(2, formacion1.cantidadDeBaños())
+    assert.equals(2, formacion1.cantidadDeBanios())
   }
 
   test "Luego de hacer mantenimiento, la formación 1 tiene una cantidad máxima de VagonPasajeros de 180, 2 vagones populares, no es carguera, su dispersión de pesos es 3200 y tiene 2 baños"{
    
     formacion1.hacerMantenimiento()
 
-    assert.equals(180, formacion1.maximoDeVagonPasajeros())
+    assert.equals(180, formacion1.maximoDePasajeros())
     assert.equals(2, formacion1.cantidadDeVagonesPopulares())
     assert.notThat(formacion1.esFormacionCarguera())
     assert.equals(3200, formacion1.dispersionDePesos())
-    assert.equals(2, formacion1.cantidadDeBaños())
+    assert.equals(2, formacion1.cantidadDeBanios())
   }
 
   
   test "Antes de hacer mantenimiento la formación 2 tiene una cantidad máxima de VagonPasajeros de 60, 1 vagón popular, es carguera, su dispersión de pesos es 900 y tiene 1 baño" {
         
     
-    assert.equals(60, formacion2.maximoDeVagonPasajeros())
+    assert.equals(60, formacion2.maximoDePasajeros())
     assert.equals(1, formacion2.cantidadDeVagonesPopulares())
     assert.that(formacion2.esFormacionCarguera())
     assert.equals(900, formacion2.dispersionDePesos())
-    assert.equals(1, formacion2.cantidadDeBaños())
+    assert.equals(1, formacion2.cantidadDeBanios())
     
   }
 
   test "Después de hacer mantenimiento en la formación 2,  el único cambio es que la dispersión de pesos cambia de 900 a 500" {
         
     formacion2.hacerMantenimiento()
-    assert.equals(60, formacion2.maximoDeVagonPasajeros())
+    assert.equals(60, formacion2.maximoDePasajeros())
     assert.equals(1, formacion2.cantidadDeVagonesPopulares())
     assert.that(formacion2.esFormacionCarguera())
     assert.equals(500, formacion2.dispersionDePesos())
-    assert.equals(1, formacion2.cantidadDeBaños())
+    assert.equals(1, formacion2.cantidadDeBanios())
     
   }
 

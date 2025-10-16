@@ -10,7 +10,7 @@ class Formacion {
     //requerimientos
     method cantidadMaximaDePasajeros() = vagones.sum({v => v.cantidadMaximaDePasajeros()})
 
-    method cantidadVagonesPopulares() = vagones.count({v => v.esPopular()})
+    method cantidadDeVagonesPopulares() = vagones.count({v => v.esPopular()})
 
     method esFormacionCarguera() = vagones.all({v => v.cargaMaxima() >= 1000})
 
@@ -25,9 +25,9 @@ class Formacion {
 
     //si esta equilibrada
     method conPasajeros() = vagones.filter({v => v.cantidadMaximaDePasajeros() > 0})
-    method maximoPasajeros() = self.conPasajeros().map({v => v.cantidadMaximaDePasajeros()}).max()
+    method maximoDePasajeros() = self.conPasajeros().map({v => v.cantidadMaximaDePasajeros()}).max()
     method minimoPasajeros() = self.conPasajeros().map({v => v.cantidadMaximaDePasajeros()}).min()
-    method estaEquilibrada() = self.conPasajeros().size() <= 1 or (self.maximoPasajeros() - self.minimoPasajeros() <= 20) 
+    method estaEquilibrada() = self.conPasajeros().size() <= 1 or (self.maximoDePasajeros() - self.minimoPasajeros() <= 20) 
 
     //si esta organizada
     method estaOrganizada() {
@@ -44,13 +44,13 @@ class Formacion {
 
     method esEficiente() = locomotoras.all({l => l.esEficiente()})
 
-    method pesoTotal() = vagones.sum({v => v.pesoMaximo()}) + locomotoras.sum({l => l.peso()})
+    method pesoMaximo() = vagones.sum({v => v.pesoMaximo()}) + locomotoras.sum({l => l.peso()})
 
-    method arrastreTotal() = vagones.sum({l => l.arrastre()})
+    method arrastreTotal() = locomotoras.sum({l => l.arrastre()})
 
-    method puedeMoverse() = self.arrastreTotal() >= self.pesoTotal()
+    method puedeMoverse() = self.arrastreTotal() >= self.pesoMaximo()
 
-    method kilosDeEmpujeFaltantes() = (self.pesoTotal() - self.arrastreTotal().max()) 
+    method empujeFaltante() = if (self.puedeMoverse()) 0 else (self.pesoMaximo() - self.arrastreTotal())
 }
 class Locomotora {
     const   property peso 
@@ -103,20 +103,7 @@ class Depositos {
     { l => l.pesoCapazDeArrastrar() >= empujeFaltante }
   )
   
-  method agregarUnaLocomotoraAUnaFormacion(unaFormacion) {
-    if (not unaFormacion.puedeMoverse()) {
-      // Si puede moverse no hace nada
-      const empujeFaltante = unaFormacion.cuantosKilosDeEmpujeLeFaltan()
-      //se guarda cuanto falta para poder moverse, porque tambien podria ya tener una locomotora que no le de para empujar
-      const locomotoraAdecuada = self.encontrarLocomotoraAdecuada(
-        empujeFaltante
-      ) // busca una locomotora adecuada para lo que necesita esa formacion
-      
-      if (locomotoraAdecuada != null) {
-        // si hayamos una locomotora capaz de mover la formacion la agregamos y quitamos del deposito
-        unaFormacion.agregarVagon(locomotoraAdecuada)
-        locomotorasSueltas.remove(locomotoraAdecuada)
-      }
-    }
-  }
+  method agregarLocomotoraSiEsNecesaioA(unaFormacion) = if (not unaFormacion.puedeMoverse()) unaFormacion.agregarLocomotora(self.agregarLocomotoraComplementariaA(unaFormacion))
+
+  method agregarLocomotoraComplementariaA(unaFormacion) = locomotoras.any{l => l.arrastre() >= unaFormacion.empujeFaltante() }.anyOne()
 }
