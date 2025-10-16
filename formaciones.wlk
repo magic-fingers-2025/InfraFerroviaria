@@ -3,6 +3,7 @@ import vagones.*
 //Etapa 1
 class Formacion {
     var vagones = []
+    var locomotoras = [] //Para etapa 2 locomotora
 
     method agregarVagon(unVagon) = vagones.add(unVagon)
 
@@ -36,5 +37,18 @@ class Formacion {
     method vagonesConPasajeros() = vagones.filter({v => v.cantidadMaximaDePasajeros() > 0})
     method vagonesSinPasajeros() = vagones.filter({v => v.cantidadMaximaDePasajeros() == 0})
 
-  
+    //Etapa 2 locomotora
+    method agregarLocomotora(unaLocomotora) = locomotoras.add(unaLocomotora)
+
+    method velocidadMaxima() = locomotoras.map({l => l.velocidadMaxima()}).min()
+
+    method esEficiente() = locomotoras.all({l => l.esEficiente()})
+
+    method pesoTotal() = vagones.sum({v => v.pesoMaximo()}) + locomotoras.sum({l => l.peso()})
+
+    method arrastreTotal() = vagones.sum({l => l.arrastre()})
+
+    method puedeMoverse() = self.arrastreTotal() >= self.pesoTotal()
+
+    method kilosDeEmpujeFaltantes() = (self.pesoTotal() - self.arrastreTotal().max()) 
 }
