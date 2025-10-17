@@ -56,6 +56,10 @@ class Formacion {
     method puedeMoverse() = self.arrastreTotal() >= self.pesoMaximo()
 
     method empujeFaltante() = if (self.puedeMoverse()) 0 else (self.pesoMaximo() - self.arrastreTotal())
+
+    //etapa 3 deposito
+
+    method esCompleja() = vagones.size() + locomotoras.size() >= 8 or self.pesoMaximo() > 80000
 }
 class Locomotora {
     const   property peso 
@@ -66,10 +70,12 @@ class Locomotora {
 }
 
 class Depositos {
-  const formacionesDepositadas = []
+
+  const property formacionesDepositadas = []
   // todas las Formaciones depositadas
-  const locomotorasSueltas = []
-  
+  const property locomotorasSueltas = []
+
+  method formacionesGuardadas() = formacionesDepositadas
   // todas las locomotoras disponibles, solas
   method depositarFormacion(unaFormacion) {
     // add formacion
@@ -100,12 +106,12 @@ class Depositos {
   ).filter({ v => v != null })
   
   // el method es compleja resuelve la condicion dentro del class Formacion.
-  method requiereConductorExperimentado() = formacionesDepositadas.any(
+  method requiereConductorExperimentado() = self.formacionesDepositadas().any(
     { f => f.esCompleja() }
   )
   
   method encontrarLocomotoraAdecuada(empujeFaltante) = locomotorasSueltas.find(
-    { l => l.pesoCapazDeArrastrar() >= empujeFaltante }
+    { l => l.arrastre() >= empujeFaltante }
   )
   
   method agregarLocomotoraSiEsNecesaioA(unaFormacion) = if (not unaFormacion.puedeMoverse()) unaFormacion.agregarLocomotora(self.agregarLocomotoraComplementariaA(unaFormacion))

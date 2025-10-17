@@ -169,5 +169,82 @@ describe "Tests formaciones"{
 
   }
 
+  test "Si a la misma formación le agregamos también la locomotora 2, entonces no es eficiente, sí puede moverse, y le faltan 0 kilos de empuje." {
+    const locomotora1 = new Locomotora(peso = 3000, arrastre = 20000, velocidadMaxima = 100)
+    const locomotora2 = new Locomotora(peso = 5000, arrastre = 22000, velocidadMaxima = 90)
+    
+    formacion1.agregarLocomotora(locomotora1)
+    formacion1.agregarLocomotora(locomotora2)
+
+    assert.notThat(formacion1.esEficiente())
+    assert.that(formacion1.puedeMoverse())
+    assert.equals(0, formacion1.empujeFaltante())
+  }
+
 }
 
+describe "test Depositos" {
+  test "deposito requiere conductor experimentado si tiene alguna formacion compleja" {
+    const vagon1 = new VagonPasajeros(largo = 10, ancho = 4, estaOrdenado = true, tieneBanio = true)
+    const vagon2 = new VagonPasajeros(largo = 7, ancho = 2, estaOrdenado = false, tieneBanio = false)
+    const vagon3 = new VagonCarga(cargaIdeal = 6800, maderasSueltas = 5)  
+    const vagon4 = new VagonDormitorio(compartimentos = 8, camasPorCompartimento = 3)
+    const vagon5 = new VagonCarga(cargaIdeal = 8000, maderasSueltas = 1)  
+    const vagon6 = new VagonDormitorio(compartimentos = 15, camasPorCompartimento = 4)
+    const vagon7 = new VagonDormitorio(compartimentos = 15, camasPorCompartimento = 4)
+    const vagon8 = new VagonDormitorio(compartimentos = 15, camasPorCompartimento = 4)
+    const vagon9 = new VagonDormitorio(compartimentos = 15, camasPorCompartimento = 4)
+    const vagon10 = new VagonDormitorio(compartimentos = 15, camasPorCompartimento = 4)
+    const vagon11 = new VagonDormitorio(compartimentos = 15, camasPorCompartimento = 4)
+    const vagon12 = new VagonDormitorio(compartimentos = 15, camasPorCompartimento = 4)
+    const vagon13 = new VagonDormitorio(compartimentos = 15, camasPorCompartimento = 4)
+    
+    const locomotora1 = new Locomotora(peso = 10000, arrastre = 80000, velocidadMaxima = 30)
+    const locomotora2 = new Locomotora(peso = 5000, arrastre = 50000, velocidadMaxima = 60)
+
+    const formacion1 = new Formacion()
+    const formacion2 = new Formacion()
+
+    formacion1.agregarVagon(vagon1)
+    formacion1.agregarVagon(vagon2)    
+    formacion1.agregarVagon(vagon3)
+    formacion1.agregarVagon(vagon4)
+    formacion1.agregarVagon(vagon5)
+    formacion1.agregarVagon(vagon6)
+    formacion1.agregarVagon(vagon7)
+
+    formacion2.agregarVagon(vagon8)
+    formacion2.agregarVagon(vagon9)
+    formacion2.agregarVagon(vagon10)
+    formacion2.agregarVagon(vagon11)
+    formacion2.agregarVagon(vagon12)
+    formacion2.agregarVagon(vagon13)
+    formacion2.agregarLocomotora(locomotora1)
+    formacion2.agregarLocomotora(locomotora2)
+  
+
+    const deposito = new Depositos()
+    deposito.depositarFormacion(formacion1)
+    deposito.depositarFormacion(formacion2)
+  
+
+    assert.that(deposito.formacionesDepositadas().any({f => f.esCompleja()}))
+    
+  }
+  test "encontrarLocomotoraAdecuada devuelve una locomotora que puede arrastrar el empuje faltante" {
+    const locomotora1 = new Locomotora(peso = 10000, arrastre = 30000, velocidadMaxima = 30)
+    const locomotora2 = new Locomotora(peso = 5000, arrastre = 50000, velocidadMaxima = 60)
+    const locomotora3 = new Locomotora(peso = 3000, arrastre = 20000, velocidadMaxima = 100)
+
+    const deposito = new Depositos()
+    deposito.depositarLocomotora(locomotora1)
+    deposito.depositarLocomotora(locomotora2)
+    deposito.depositarLocomotora(locomotora3)
+
+    const empujeFaltante = 45000
+
+    const locomotoraAdecuada = deposito.encontrarLocomotoraAdecuada(empujeFaltante)
+
+    assert.equals(locomotoraAdecuada, locomotora2)
+  }
+}
